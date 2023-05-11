@@ -1,0 +1,4 @@
+venv
+data/images/*
+data/classifiers/*
+__pycache__
