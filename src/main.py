@@ -12,20 +12,27 @@ from httpServer import HttpStreamer
 detector = Detector()
 dataset_creator = Dataset_Classifier()
 
-http = HttpStreamer(detector)
 
+# train detector
+# labels = dataset_creator.train_classifer_all()
+# print(labels)
 
-labels = dataset_creator.train_classifer_all()
+labels = dataset_creator.get_labels()
 print(labels)
+
 
 print('traning is done')
 print('enable camera')
 
 detector.enable_camera()
 
-# start_capture("mama")
+http = HttpStreamer(detector,labels)
+http.run()
 
-detector.start_regognition_all(labels)
+
+# # start_capture("mama")
+
+# detector.start_regognition_all(labels)
     
   
 

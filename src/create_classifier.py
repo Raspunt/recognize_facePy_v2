@@ -75,7 +75,19 @@ class Dataset_Classifier():
                 clf.write("./data/classifiers/trainner.xml")
                 
                 return labels     
+        
+        
+        def get_labels(self) -> list:
+                
+                path = os.path.join(os.getcwd()+"/data/images")
+                labels = []
+                
+                for label in os.listdir(path):
+                        labels.append(label)
+                
+                return labels
                         
+                     
 
                         # for pic in pictures :
 

@@ -17,8 +17,10 @@ class Detector:
         
         if self.camera_working == False:
             self.vs = VideoStream(framerate=10,resolution=(300,300)).start()
-
-
+            self.camera_working = True
+        else :
+            print('camera is already open')
+        
 
     def start_regognition_once(self,face_cascade,recognizer):
             
@@ -92,7 +94,14 @@ class Detector:
                                 frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
                                 frame = cv2.putText(frame, text, (x, y-4), font, 1, (0, 0,255), 1, cv2.LINE_AA)
 
-                cv2.imshow("image", frame)
+                # cv2.imshow("image", frame)
+                
+                ret, jpeg = cv2.imencode('.jpg', frame)
+                frame = jpeg.tobytes()
+                
+                yield (b'--frame\r\n'
+                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+                
                 
                 if cv2.waitKey(1) & 0xFF == ord("q"):
                     break
